@@ -6,6 +6,9 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Represents a Conjur API authentication token.
  */
@@ -14,6 +17,8 @@ public class Token {
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
             // tokens use dates like 2013-10-01 18:48:32 UTC
             DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss ZZZ");
+
+    private static final Logger logger = LoggerFactory.getLogger(Token.class);
 
     // Hold our fields in here to facilitate json serialization/deserialization
     private static class Fields {
@@ -31,6 +36,7 @@ public class Token {
 
     private Token(String json){
         this.json = json;
+        logger.info(String.format("Token got json \n%s\n", json));
     }
 
     private Fields fields(){
